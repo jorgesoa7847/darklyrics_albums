@@ -1,22 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[593]:
-
-
 import requests
 from bs4 import BeautifulSoup
 import re
 from functools import reduce
 
 
-# In[594]:
-
-
 Letra_abecedario=input("Escoga la letra del artista que guste: ")
-
-
-# In[595]:
 
 
 url='http://www.darklyrics.com/'+f'{Letra_abecedario.casefold()}'+'.html'
@@ -26,7 +17,7 @@ soup=BeautifulSoup(content,'lxml')
 box=soup.find('div',class_='cont')
 
 
-# In[596]:
+
 
 
 box_fr=box.find('div',class_='artists fr')
@@ -43,7 +34,7 @@ artistas=artistas_fr+artistas_f1
 artistas=[f"{artistas.index(i)+1}--{i}" for i in artistas]
 
 
-# In[597]:
+
 
 
 for i in artistas:
@@ -51,14 +42,14 @@ for i in artistas:
 eleccion_1=int(input(f'Choose the number of artist: ' ))
 
 
-# In[598]:
+
 
 
 artista_seleccionado=artistas[eleccion_1-1].split("--")[1].casefold()
 artista_seleccionado=reduce(lambda x, y: x + y, re.findall('[A-Za-z]',artista_seleccionado))
 
 
-# In[599]:
+
 
 
 sitio_web_letras=f'http://www.darklyrics.com/{Letra_abecedario}/'+f'{artista_seleccionado}'+'.html'
@@ -71,14 +62,14 @@ for i in discos:
     discos_.append(i.text)
 
 
-# In[600]:
+
 
 
 albums=[re.findall('\"(.+)\" ',i)[0] for i in discos_]
 albums=[f'{albums.index(i)+1}--{i}' for i in albums]
 
 
-# In[601]:
+
 
 
 for i in albums:
@@ -86,7 +77,7 @@ for i in albums:
 album_escogido=int(input("Escoge un album por numero: "))
 
 
-# In[602]:
+
 
 
 albums[album_escogido-1]
@@ -94,7 +85,7 @@ album_s=albums[album_escogido-1].split("--")[1].casefold().replace(' ','')
 album_s=reduce(lambda x, y: x + y, re.findall('[A-Za-z]',album_s))
 
 
-# In[603]:
+
 
 
 sitio_web=f'http://www.darklyrics.com/lyrics/{artista_seleccionado}/{album_s}.html'
@@ -106,99 +97,8 @@ for item in soup.find('div',class_='albumlyrics').find_all('a',href=True):
     canciones.append(item.text)
 
 
-# In[604]:
+
 
 
 letras=soup.find('div',class_='lyrics').get_text(strip=True,separator=' ')
 with open(f'{artista_seleccionado}-{album_s}','w',encoding='utf-8') as file: file.write(letras)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
